@@ -155,8 +155,6 @@ public class LispInterpreter
             return nextToken;
         }
 
-        // --- Parser & Evaluator (Recursive AST building and evaluation) ---
-
         // Helper to "eat" a token of expected type
         void Eat(TokenType type)
         {
@@ -319,10 +317,10 @@ public class LispInterpreter
         RunTest("(let x 3 x)"); // Expected: 2
         RunTest("(add 10 20)"); // Expected: 30
         RunTest("42"); // Expected: 42
+        RunTest("(let x 10 y (add x 5) (mult x y))"); // Expected: 150
 
         // Error cases
         RunTest("(add x 5)"); // Expected: Error (Undefined variable: x)
-        RunTest("(let x 10 y (add x 5) (mult x y))"); // Expected: 150
         RunTest("()"); // Expected: Error
         RunTest("(mult 1 2 3)"); // Expected: Error (Parser: expects only 2 args)
         RunTest("(let x 10 y)"); // Expected: Error (Parser: malformed let)
